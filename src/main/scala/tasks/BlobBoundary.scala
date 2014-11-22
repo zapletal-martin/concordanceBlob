@@ -44,12 +44,14 @@ object BlobBoundary {
         if(input(index.row)(index.column).isOne)
             Some(IntermediaryResult(input, index, index.row, 9, 0, 0))
         else {
-          if (index.column == 9 && index.row == 9)
+          if ((index.column == 9 || index.column == 8) && index.row == 9)
             None
-          else if (index.column == 9)
+          else if (index.column == 8)
             findBlobStart(newArray(input, index), Index(index.row + 1, 0))
+          else if (index.column == 8)
+            findBlobStart(newArray(input, index), Index(index.row + 1, 1))
           else
-            findBlobStart(newArray(input, index), index.copy(column = index.column + 1))
+            findBlobStart(newArray(input, index), index.copy(column = index.column + 2))
       }
     }
 
@@ -58,6 +60,8 @@ object BlobBoundary {
       val input = result.input
 
       if(indexInBounds(index) && !input(index.row)(index.column).processed) {
+
+        println("READ")
         if(input(index.row)(index.column).isOne) {
           val rightResult = findBlobBoundary(result.copy(input = newArray(input, index), index = index.copy(column = index.column + 1)))
           val leftResult = findBlobBoundary(result.copy(input = rightResult.input, index = index.copy(column = index.column - 1)))

@@ -43,7 +43,7 @@ class BlobBoundarySpecs
     "the input is only one One" should {
       val input = Array[Array[Cell]](
         Array(Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero),
-        Array(Zero, One, Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero),
+        Array(Zero, One, One, Zero, Zero, Zero, Zero, Zero, Zero, Zero),
         Array(Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero),
         Array(Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero),
         Array(Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero),
@@ -54,19 +54,19 @@ class BlobBoundarySpecs
         Array(Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero)
       )
 
-      "be top:1, left:1, bottom:1, right:1" in {
+      "be top:1, left:1, bottom:1, right:2" in {
         val result = BlobBoundary.computeBlobBoundary(input).get
         val result2 = BlobBoundary.computeBlobBoundary2(input).get
 
         result.top should be(1)
         result.left should be(1)
         result.bottom should be(1)
-        result.right should be(1)
+        result.right should be(2)
 
         result2.top should be(1)
         result2.left should be(1)
         result2.bottom should be(1)
-        result2.right should be(1)
+        result2.right should be(2)
       }
     }
 
